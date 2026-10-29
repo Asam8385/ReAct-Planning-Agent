@@ -1,0 +1,39 @@
+{
+  "initial_state": "invalid_config",
+  "expected_status": "completed",
+  "allowed_actions": [
+    "restart_service",
+    "restore_config"
+  ],
+  "states": {
+    "invalid_config": {
+      "health": "unhealthy",
+      "logs": [
+        "Startup failed; inspect service configuration"
+      ],
+      "transitions": {
+        "restart_service": "restart_failed",
+        "restore_config": "running"
+      }
+    },
+    "restart_failed": {
+      "health": "unhealthy",
+      "logs": [
+        "Restart failed: invalid configuration key"
+      ],
+      "transitions": {
+        "restart_service": "restart_failed",
+        "restore_config": "running"
+      }
+    },
+    "running": {
+      "health": "healthy",
+      "logs": [
+        "Configuration restored; service ready"
+      ],
+      "transitions": {}
+    }
+  },
+  "id": "configuration_error",
+  "service_id": "reporting-service"
+}

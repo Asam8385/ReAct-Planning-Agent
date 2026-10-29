@@ -1,0 +1,27 @@
+{
+  "initial_state": "stopped",
+  "expected_status": "completed",
+  "allowed_actions": [
+    "restart_service"
+  ],
+  "states": {
+    "stopped": {
+      "health": "unhealthy",
+      "logs": [
+        "Service process stopped"
+      ],
+      "transitions": {
+        "restart_service": "running"
+      }
+    },
+    "running": {
+      "health": "healthy",
+      "logs": [
+        "Service restarted and ready"
+      ],
+      "transitions": {}
+    }
+  },
+  "id": "stopped_service",
+  "service_id": "reporting-service"
+}

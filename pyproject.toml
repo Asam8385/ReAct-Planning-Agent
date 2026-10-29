@@ -1,0 +1,39 @@
+[project]
+name = "incident-recovery-agent"
+version = "0.1.0"
+description = "A bounded ReAct incident diagnosis and recovery agent"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "langchain[mcp]>=1.4,<2",
+    "fastmcp>=2.3,<5",
+    "langgraph>=1,<2",
+    "pydantic-settings>=2,<3",
+    "rich>=13,<15",
+]
+
+[dependency-groups]
+dev = ["pytest>=8,<10", "pytest-asyncio>=0.24,<2", "ruff>=0.11,<1"]
+
+[project.scripts]
+incident-agent = "incident_recovery_agent.cli:main"
+incident-mcp = "incident_recovery_agent.mcp_server:main"
+
+[build-system]
+requires = ["hatchling>=1.26,<2"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/incident_recovery_agent"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+

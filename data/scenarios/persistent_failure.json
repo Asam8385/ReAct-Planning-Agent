@@ -1,0 +1,22 @@
+{
+  "initial_state": "dependency_unavailable",
+  "expected_status": "partial",
+  "allowed_actions": [
+    "restart_service",
+    "restore_config"
+  ],
+  "states": {
+    "dependency_unavailable": {
+      "health": "unhealthy",
+      "logs": [
+        "Required dependency remains unavailable"
+      ],
+      "transitions": {
+        "restart_service": "dependency_unavailable",
+        "restore_config": "dependency_unavailable"
+      }
+    }
+  },
+  "id": "persistent_failure",
+  "service_id": "reporting-service"
+}

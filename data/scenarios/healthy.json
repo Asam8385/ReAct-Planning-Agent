@@ -1,0 +1,16 @@
+{
+  "initial_state": "running",
+  "expected_status": "completed",
+  "allowed_actions": [],
+  "states": {
+    "running": {
+      "health": "healthy",
+      "logs": [
+        "Service ready"
+      ],
+      "transitions": {}
+    }
+  },
+  "id": "healthy",
+  "service_id": "reporting-service"
+}
