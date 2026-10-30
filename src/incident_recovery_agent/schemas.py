@@ -176,9 +176,72 @@ class TaskState:
 
 
 
+class RunbookResult(HealthResult):
+    """Service state with permitted recovery actions and guidance."""
+
+    actions: dict[Action, str] = Field(
+        default_factory=dict,
+    )
+
+
+class RecoveryResult(HealthResult):
+    """Result of executing a recovery action.
+
+    Execution success does not guarantee service recovery.
+    A subsequent health check must verify the outcome.
+    """
+
+    action: Action
+
+    message: str = Field(
+        min_length=1,
+    )
 
 
 
+class IncidentResult(ApplicationModel):
+    """Final report generated from recorded execution state."""
+
+    task_id: str = Field(
+        min_length=1,
+    )
+
+    # Empty if initialization failed before creating an incident.
+    run_id: str = ""
+
+    scenario: str = Field(
+        min_length=1,
+    )
+
+    status: Status
+
+    stop_reason: str = Field(
+        min_length=1,
+    )
+
+    summary: str = Field(
+        min_length=1,
+    )
+
+    model_calls: int = Field(
+        ge=0,
+    )
+
+    tool_calls: int = Field(
+        ge=0,
+    )
+
+    recovery_attempts: int = Field(
+        ge=0,
+    )
+
+    active_seconds: float = Field(
+        ge=0,
+    )
+
+    last_observation: dict[str, Any] = Field(
+        default_factory=dict,
+    )
 
 
 
